@@ -1,20 +1,48 @@
 <!DOCTYPE html>
 <html lang="id" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Portofolio Interaktif - Fauzan Iskandar Raharja</title>
+
+    <!-- SEO & Social -->
+    <meta name="description" content="Fauzan Iskandar Raharja — Spesialis Jaringan Komputer & Fiber Optik. Portofolio interaktif berisi pengalaman, keahlian, dan sertifikat." />
+    <link rel="canonical" href="https://github.com/fiskandarr/fauzan-cv/blob/main/index.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Fauzan Iskandar Raharja — Portofolio Interaktif" />
+    <meta property="og:description" content="Spesialis Jaringan Komputer & Fiber Optik — CV interaktif, pengalaman, keahlian, dan sertifikat." />
+    <meta property="og:url" content="https://github.com/fiskandarr/fauzan-cv/blob/main/index.html" />
+    <meta property="og:image" content="https://raw.githubusercontent.com/fiskandarr/fauzan-cv/main/img/11.%20FAUZAN%20ISKANDAR%20RAHARJA.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Preconnect & Fonts (avoid @import in style) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet" />
+
+    <!-- Tailwind CDN (kept in head to avoid flash but consider building with PurgeCSS for production) -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- Chosen Palette: Cool Gray and Blue -->
-    <!-- Application Structure Plan: Mengubah CV linear menjadi portofolio interaktif satu halaman dengan navigasi. Struktur diperbarui untuk menyertakan bagian Dokumen yang berdedikasi, memindahkan sertifikasi ke sana dan menambah placeholder untuk ijazah dan transkrip nilai. Pendekatan ini dipilih untuk memisahkan keahlian dari bukti dokumen, menciptakan alur yang lebih logis dan profesional bagi rekruter saat menelusuri kualifikasi. -->
-    <!-- Visualization & Content Choices: Ringkasan Profesional -> Teks -> Goal: Inform. Pengalaman Kerja & Pendidikan -> Kartu Informasi -> Goal: Inform. Keahlian Teknis -> Grafik Batang Horizontal (Chart.js) -> Goal: Compare/Inform -> Interaksi: Tooltip saat hover untuk detail -> Justifikasi: Visualisasi data lebih menarik. Keahlian Non-Teknis & Bahasa -> Daftar dengan Ikon. Dokumen -> Kartu gambar dan teks -> Goal: Inform & Verify -> Interaksi: Menampilkan gambar sertifikat. -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <!-- Chart.js deferred for performance -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+
+    <!-- Structured data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Fauzan Iskandar Raharja",
+      "jobTitle": "Spesialis Jaringan Komputer & Fiber Optik",
+      "email": "mailto:fauzaniskandar.official@gmail.com",
+      "telephone": "tel:082261516936",
+      "url": "https://github.com/fiskandarr/fauzan-cv",
+      "sameAs": []
+    }
+    </script>
+
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+        /* Keep font-family and minimal custom styles here */
+        body { font-family: 'Inter', sans-serif; }
         .chart-container {
             position: relative;
             width: 100%;
@@ -25,24 +53,57 @@
             max-height: 400px;
         }
         @media (min-width: 640px) {
-            .chart-container {
-                height: 320px;
-            }
+            .chart-container { height: 320px; }
         }
 
-        /* CSS untuk animasi transisi judul */
+        /* CSS untuk animasi transisi judul (use classes toggled by JS) */
         #nav-title {
             transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+            will-change: opacity, transform;
+        }
+        /* Hidden state used for fade-out before changing text */
+        .nav-title--hidden {
+            opacity: 0;
+            transform: scale(0.8);
+        }
+        /* Short/compact title — screen-reader friendly */
+        .nav-title--short {
+            /* no extra visual styling here beyond content change */
+        }
+
+        /* Skip link visible on keyboard focus */
+        .skip-link {
+            position: absolute;
+            left: -999px;
+            top: auto;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+        }
+        .skip-link:focus, .skip-link:active {
+            position: static;
+            left: auto;
+            width: auto;
+            height: auto;
+            padding: 0.5rem 1rem;
+            background: white;
+            border-radius: 6px;
+            box-shadow: 0 2px 6px rgba(2,6,23,0.2);
+            z-index: 60;
         }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800">
 
-    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
-        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <div id="nav-title" class="text-xl font-bold text-slate-900">
+    <!-- Accessibility: Skip link -->
+    <a href="#main-content" class="skip-link">Skip to content</a>
+
+    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm" role="banner">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center" aria-label="Primary navigation">
+            <div id="nav-title" class="text-xl font-bold text-slate-900" aria-live="polite">
                 Curriculum Vitae
             </div>
+
             <div class="hidden md:flex space-x-8">
                 <a href="#about" class="text-slate-600 hover:text-blue-600 transition duration-300">Tentang Saya</a>
                 <a href="#experience" class="text-slate-600 hover:text-blue-600 transition duration-300">Pengalaman</a>
@@ -51,8 +112,10 @@
                 <a href="#education" class="text-slate-600 hover:text-blue-600 transition duration-300">Pendidikan</a>
                 <a href="#contact" class="text-slate-600 hover:text-blue-600 transition duration-300">Kontak Saya</a>
             </div>
+
             <div class="md:hidden">
-                <select id="mobile-nav" class="bg-white border border-slate-300 rounded-md p-2 text-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <label for="mobile-nav" class="sr-only">Navigasi</label>
+                <select id="mobile-nav" aria-label="Menu navigasi seluler" class="bg-white border border-slate-300 rounded-md p-2 text-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
                     <option value="#about">Tentang Saya</option>
                     <option value="#experience">Pengalaman</option>
                     <option value="#skills">Keahlian</option>
@@ -64,36 +127,44 @@
         </nav>
     </header>
 
-    <main class="container mx-auto px-6 py-12">
+    <main id="main-content" class="container mx-auto px-6 py-12" role="main">
         <section id="hero" class="text-center py-16">
             <div class="flex justify-center mb-6">
-                <img src="img\11. FAUZAN ISKANDAR RAHARJA.png" alt="Foto Profil Fauzan Iskandar Raharja" class="w-24 h-24 md:w-32 md:h-32 rounded-full object-cover border-4 border-blue-200 shadow-lg">
+                <img
+                    src="img/11. FAUZAN ISKANDAR RAHARJA.png"
+                    alt="Foto profil Fauzan Iskandar Raharja"
+                    class="w-24 h-24 md:w-32 md:h-32 rounded-full object-cover border-4 border-blue-200 shadow-lg"
+                    loading="lazy"
+                    decoding="async"
+                    width="128"
+                    height="128"
+                />
             </div>
             <h1 class="text-4xl md:text-6xl font-extrabold text-slate-900 leading-tight">Fauzan Iskandar Raharja</h1>
             <p class="mt-4 text-lg md:text-xl text-blue-700 font-medium">Spesialis Jaringan Komputer & Fiber Optik</p>
             <div class="mt-8 flex flex-col sm:flex-row justify-center items-center space-y-2 sm:space-y-0 sm:space-x-6 text-slate-600">
                 <span class="flex items-center text-center">
-                    <span class="text-xl mr-2">&#127968;</span>
+                    <span class="text-xl mr-2" aria-hidden="true">&#127968;</span>
                     Jl. Ir. H. Juanda No. 473 RT009 RW001, <br> Kel. Dago, Kec. Coblong, Kota Bandung, 40135
                 </span>
                 <span class="flex items-center">
-                    <span class="text-xl mr-2">&#128231;</span>
-                    fiskandar.official@gmail.com
+                    <span class="text-xl mr-2" aria-hidden="true">&#128231;</span>
+                    <a href="mailto:fauzaniskandar.official@gmail.com" class="text-slate-600 hover:text-blue-600">fauzaniskandar.official@gmail.com</a>
                 </span>
             </div>
         </section>
 
-        <section id="about" class="py-16 scroll-mt-20">
-            <h2 class="text-3xl font-bold text-center text-slate-900 mb-4">Tentang Saya</h2>
-             <div class="max-w-3xl mx-auto bg-white p-8 rounded-xl shadow-md">
+        <section id="about" class="py-16 scroll-mt-20" aria-labelledby="about-heading">
+            <h2 id="about-heading" class="text-3xl font-bold text-center text-slate-900 mb-4">Tentang Saya</h2>
+            <div class="max-w-3xl mx-auto bg-white p-8 rounded-xl shadow-md">
                 <p class="text-lg text-center text-slate-700 leading-relaxed">
-                    Lulusan baru yang proaktif dan cepat belajar dari jurusan Teknik Komputer dan Jaringan. Memiliki dasar pengetahuan yang solid tentang infrastruktur TI, termasuk konfigurasi jaringan dan pemecahan masalah. Siap untuk berkembang bersama perusahaan yang memberikan kesempatan untuk mengasah kemampuan teknis dan non-teknis.
+                    Lulusan baru yang proaktif dan cepat belajar dari jurusan Teknik Komputer dan Jaringan. Memiliki dasar pengetahuan yang solid tentang infrastruktur TI, termasuk konfigurasi jaringan, pengelolaan perangkat, dan praktik kerja fiber optik. Berorientasi pada hasil, memiliki kemampuan komunikasi dan kerja sama tim yang baik, serta antusias untuk terus belajar dan berkembang.
                 </p>
             </div>
         </section>
 
-        <section id="experience" class="py-16 scroll-mt-20">
-            <h2 class="text-3xl font-bold text-center text-slate-900 mb-12">Pengalaman Kerja</h2>
+        <section id="experience" class="py-16 scroll-mt-20" aria-labelledby="experience-heading">
+            <h2 id="experience-heading" class="text-3xl font-bold text-center text-slate-900 mb-12">Pengalaman Kerja</h2>
             <div class="max-w-3xl mx-auto bg-white p-8 rounded-xl shadow-lg border border-slate-200">
                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4">
                     <h3 class="text-xl font-bold text-blue-700">Internship / Praktek Kerja Lapangan</h3>
@@ -104,128 +175,142 @@
                     <p class="text-sm text-slate-500">Jl. Sadang Serang No. 25, Kota Bandung</p>
                 </div>
                 <div class="text-slate-700 space-y-3">
-                     <p class="flex items-start">
-                        <span class="text-blue-500 mr-3 mt-1">&#10003;</span>
+                    <p class="flex items-start">
+                        <span class="text-blue-500 mr-3 mt-1" aria-hidden="true">&#10003;</span>
                         <span>Membantu teknisi dalam instalasi dan pemeliharaan jaringan Indihome, berfokus pada pemasangan baru dan perbaikan.</span>
                     </p>
-                     <p class="flex items-start">
-                        <span class="text-blue-500 mr-3 mt-1">&#10003;</span>
+                    <p class="flex items-start">
+                        <span class="text-blue-500 mr-3 mt-1" aria-hidden="true">&#10003;</span>
                         <span>Mempelajari berbagai teknik pengerjaan fiber optik, termasuk splicing dan pengukuran, serta konfigurasi perangkat keras jaringan di lapangan.</span>
                     </p>
                     <p class="flex items-start">
-                        <span class="text-blue-500 mr-3 mt-1">&#10003;</span>
+                        <span class="text-blue-500 mr-3 mt-1" aria-hidden="true">&#10003;</span>
                         <span>Berkontribusi dalam tim untuk memastikan kelancaran operasional dan kepuasan pelanggan.</span>
                     </p>
                 </div>
             </div>
         </section>
-        
-        <section id="skills" class="py-16 scroll-mt-20">
-            <h2 class="text-3xl font-bold text-center text-slate-900 mb-12">Keahlian</h2>
+
+        <section id="skills" class="py-16 scroll-mt-20" aria-labelledby="skills-heading">
+            <h2 id="skills-heading" class="text-3xl font-bold text-center text-slate-900 mb-12">Keahlian</h2>
             <div class="max-w-4xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
                 <div class="bg-white p-8 rounded-xl shadow-md">
                     <h3 class="text-2xl font-semibold text-center text-slate-800 mb-2">Keahlian Teknis</h3>
                     <p class="text-center text-slate-500 mb-8">Visualisasi ini menunjukkan tingkat kemahiran dalam berbagai domain teknis. Arahkan kursor ke bar untuk melihat detail.</p>
                     <div class="space-y-6">
                         <div>
-                             <h4 class="font-semibold text-slate-700 mb-2">Jaringan & Sistem</h4>
-                            <div class="chart-container">
-                                <canvas id="networkSkillsChart"></canvas>
+                            <h4 class="font-semibold text-slate-700 mb-2">Jaringan & Sistem</h4>
+                            <div class="chart-container" aria-hidden="false">
+                                <canvas id="networkSkillsChart" role="img" aria-label="Grafik keahlian jaringan"></canvas>
                             </div>
                         </div>
                         <div>
-                             <h4 class="font-semibold text-slate-700 mb-2">Fiber Optik & Aplikasi</h4>
-                            <div class="chart-container">
-                                <canvas id="fiberSkillsChart"></canvas>
+                            <h4 class="font-semibold text-slate-700 mb-2">Fiber Optik & Aplikasi</h4>
+                            <div class="chart-container" aria-hidden="false">
+                                <canvas id="fiberSkillsChart" role="img" aria-label="Grafik keahlian fiber optik"></canvas>
                             </div>
                         </div>
                     </div>
                 </div>
+
                 <div class="bg-white p-8 rounded-xl shadow-md">
                     <h3 class="text-2xl font-semibold text-center text-slate-800 mb-8">Keahlian Non-Teknis</h3>
                     <ul class="space-y-4 text-lg">
-                        <li class="flex items-center"><span class="text-blue-500 mr-4 text-2xl">&#128172;</span> Komunikasi Efektif</li>
-                        <li class="flex items-center"><span class="text-blue-500 mr-4 text-2xl">&#129309;</span> Kerja Sama Tim</li>
-                        <li class="flex items-center"><span class="text-blue-500 mr-4 text-2xl">&#9200;</span> Manajemen Waktu</li>
-                        <li class="flex items-center"><span class="text-blue-500 mr-4 text-2xl">&#128161;</span> Pemecahan Masalah</li>
-                        <li class="flex items-center"><span class="text-blue-500 mr-4 text-2xl">&#127760;</span> Kemampuan Beradaptasi</li>
+                        <li class="flex items-center"><span class="text-blue-500 mr-4 text-2xl" aria-hidden="true">&#128172;</span> Komunikasi Efektif</li>
+                        <li class="flex items-center"><span class="text-blue-500 mr-4 text-2xl" aria-hidden="true">&#129309;</span> Kerja Sama Tim</li>
+                        <li class="flex items-center"><span class="text-blue-500 mr-4 text-2xl" aria-hidden="true">&#9200;</span> Manajemen Waktu</li>
+                        <li class="flex items-center"><span class="text-blue-500 mr-4 text-2xl" aria-hidden="true">&#128161;</span> Pemecahan Masalah</li>
+                        <li class="flex items-center"><span class="text-blue-500 mr-4 text-2xl" aria-hidden="true">&#127760;</span> Kemampuan Beradaptasi</li>
                     </ul>
-                     <h3 class="text-2xl font-semibold text-center text-slate-800 mt-12 mb-8">Bahasa</h3>
-                     <ul class="space-y-4 text-lg">
-                        <li class="flex items-center"><span class="text-blue-500 mr-4 text-2xl">&#127470;&#127465;</span> Bahasa Indonesia (Native)</li>
-                        <li class="flex items-center"><span class="text-blue-500 mr-4 text-2xl">&#127468;&#127463;</span> Bahasa Inggris (Mahir)</li>
-                     </ul>
+
+                    <h3 class="text-2xl font-semibold text-center text-slate-800 mt-12 mb-8">Bahasa</h3>
+                    <ul class="space-y-4 text-lg">
+                        <li class="flex items-center"><span class="text-blue-500 mr-4 text-2xl" aria-hidden="true">&#127470;&#127465;</span> Bahasa Indonesia (Native)</li>
+                        <li class="flex items-center"><span class="text-blue-500 mr-4 text-2xl" aria-hidden="true">&#127468;&#127463;</span> Bahasa Inggris (Mahir)</li>
+                    </ul>
                 </div>
             </div>
         </section>
 
-        <section id="documents" class="py-16 scroll-mt-20">
-            <h2 class="text-3xl font-bold text-center text-slate-900 mb-12">Dokumen</h2>
+        <section id="documents" class="py-16 scroll-mt-20" aria-labelledby="documents-heading">
+            <h2 id="documents-heading" class="text-3xl font-bold text-center text-slate-900 mb-12">Dokumen</h2>
             <div class="max-w-3xl mx-auto space-y-8">
                 <p class="text-center text-slate-600 mb-8">Berikut adalah dokumen dan sertifikasi yang mendukung kualifikasi saya.</p>
-                <div class="bg-white p-6 rounded-xl shadow-md flex flex-col md:flex-row items-center md:items-start gap-6">
-                    <img src="img\BNSP.jpg" alt="Sertifikat BNSP" class="w-full md:w-1/2 rounded-lg shadow-sm">
-                    <div class="flex-1">
+
+                <figure class="bg-white p-6 rounded-xl shadow-md flex flex-col md:flex-row items-center md:items-start gap-6">
+                    <img src="img/BNSP.jpg" alt="Sertifikat Kompetensi BNSP - Level II TKJ" class="w-full md:w-1/2 rounded-lg shadow-sm" loading="lazy" decoding="async" width="600" height="400" />
+                    <figcaption class="flex-1">
                         <h3 class="font-semibold text-slate-800 text-lg">Sertifikat Kompetensi BNSP - Level II TKJ</h3>
                         <p class="text-slate-600 mt-1">Badan Nasional Sertifikasi Profesi, 2024</p>
-                    </div>
-                </div>
-                <div class="bg-white p-6 rounded-xl shadow-md flex flex-col md:flex-row-reverse items-center md:items-start gap-6">
-                    <img src="img\PKL.jpg" alt="Sertifikat Praktek Kerja Lapangan" class="w-full md:w-1/2 rounded-lg shadow-sm">
-                    <div class="flex-1 text-left md:text-right">
+                    </figcaption>
+                </figure>
+
+                <figure class="bg-white p-6 rounded-xl shadow-md flex flex-col md:flex-row-reverse items-center md:items-start gap-6">
+                    <img src="img/PKL.jpg" alt="Sertifikat Praktek Kerja Lapangan" class="w-full md:w-1/2 rounded-lg shadow-sm" loading="lazy" decoding="async" width="600" height="400" />
+                    <figcaption class="flex-1 text-left md:text-right">
                         <h3 class="font-semibold text-slate-800 text-lg">Sertifikat Praktek Kerja Lapangan</h3>
                         <p class="text-slate-600 mt-1">PT. Telkom Akses, 2023</p>
-                    </div>
-                </div>
-                <div class="bg-white p-6 rounded-xl shadow-md flex flex-col md:flex-row items-center md:items-start gap-6">
-                    <img src="img\IJAZAH.jpg" alt="Ijazah SMK" class="w-full md:w-1/2 rounded-lg shadow-sm">
-                    <div class="flex-1">
+                    </figcaption>
+                </figure>
+
+                <figure class="bg-white p-6 rounded-xl shadow-md flex flex-col md:flex-row items-center md:items-start gap-6">
+                    <img src="img/IJAZAH.jpg" alt="Ijazah SMK" class="w-full md:w-1/2 rounded-lg shadow-sm" loading="lazy" decoding="async" width="600" height="400" />
+                    <figcaption class="flex-1">
                         <h3 class="font-semibold text-slate-800 text-lg">Ijazah</h3>
                         <p class="text-slate-600 mt-1">SMK Negeri 5 Bandung, 2024</p>
-                    </div>
-                </div>
-                <div class="bg-white p-6 rounded-xl shadow-md flex flex-col md:flex-row-reverse items-center md:items-start gap-6">
-                    <img src="img\TRANSKRIP.jpg" alt="Transkrip Nilai SMK" class="w-full md:w-1/2 rounded-lg shadow-sm">
-                    <div class="flex-1 text-left md:text-right">
+                    </figcaption>
+                </figure>
+
+                <figure class="bg-white p-6 rounded-xl shadow-md flex flex-col md:flex-row-reverse items-center md:items-start gap-6">
+                    <img src="img/TRANSKRIP.jpg" alt="Transkrip Nilai SMK" class="w-full md:w-1/2 rounded-lg shadow-sm" loading="lazy" decoding="async" width="600" height="400" />
+                    <figcaption class="flex-1 text-left md:text-right">
                         <h3 class="font-semibold text-slate-800 text-lg">Transkrip Nilai</h3>
                         <p class="text-slate-600 mt-1">SMK Negeri 5 Bandung, 2024</p>
-                    </div>
-                </div>
+                    </figcaption>
+                </figure>
             </div>
         </section>
-        
-        <section id="education" class="py-16 scroll-mt-20">
-             <h2 class="text-3xl font-bold text-center text-slate-900 mb-12">Pendidikan</h2>
-             <div class="max-w-3xl mx-auto bg-white p-8 rounded-xl shadow-lg border border-slate-200 text-center">
-                 <h3 class="text-2xl font-bold text-blue-700">SMK Negeri 5 Bandung</h3>
-                 <p class="text-lg text-slate-700 mt-2">Teknik Komputer dan Jaringan</p>
-                 <p class="text-slate-500 mt-1">Juli 2021 - Mei 2024</p>
-             </div>
+
+        <section id="education" class="py-16 scroll-mt-20" aria-labelledby="education-heading">
+            <h2 id="education-heading" class="text-3xl font-bold text-center text-slate-900 mb-12">Pendidikan</h2>
+            <div class="max-w-3xl mx-auto bg-white p-8 rounded-xl shadow-lg border border-slate-200 text-center">
+                <h3 class="text-2xl font-bold text-blue-700">SMK Negeri 5 Bandung</h3>
+                <p class="text-lg text-slate-700 mt-2">Teknik Komputer dan Jaringan</p>
+                <p class="text-slate-500 mt-1">Juli 2021 - Mei 2024</p>
+            </div>
         </section>
 
-        <section id="contact" class="py-16 scroll-mt-20">
-            <h2 class="text-3xl font-bold text-center text-slate-900 mb-12">Kontak Saya</h2>
+        <section id="contact" class="py-16 scroll-mt-20" aria-labelledby="contact-heading">
+            <h2 id="contact-heading" class="text-3xl font-bold text-center text-slate-900 mb-12">Kontak Saya</h2>
             <div class="max-w-xl mx-auto bg-white p-8 rounded-xl shadow-lg border border-slate-200">
                 <div class="space-y-6">
                     <div class="flex items-start space-x-4">
-                        <span class="text-2xl text-blue-500">&#128231;</span>
+                        <span class="text-2xl text-blue-500" aria-hidden="true">&#128231;</span>
                         <div>
                             <h3 class="font-semibold text-slate-800">Email</h3>
-                            <p class="text-slate-600">fiskandar.official@gmail.com</p>
+                            <p class="text-slate-600">
+                                <a href="mailto:fauzaniskandar.official@gmail.com" class="hover:text-blue-600">fauzaniskandar.official@gmail.com</a>
+                            </p>
                         </div>
                     </div>
+
                     <div class="flex items-start space-x-4">
-                        <span class="text-2xl text-blue-500">&#128222;</span>
+                        <span class="text-2xl text-blue-500" aria-hidden="true">&#128222;</span>
                         <div>
                             <h3 class="font-semibold text-slate-800">Telepon</h3>
-                            <p class="text-slate-600">0812-9980-6380</p>
+                            <p class="text-slate-600">
+                                <a href="tel:082261516936" class="hover:text-blue-600">0822-6151-6936</a>
+                            </p>
                         </div>
                     </div>
+
                     <div class="flex items-start space-x-4">
-                        <span class="text-2xl text-blue-500">&#127968;</span>
+                        <span class="text-2xl text-blue-500" aria-hidden="true">&#127968;</span>
                         <div>
                             <h3 class="font-semibold text-slate-800">Alamat</h3>
-                            <p class="text-slate-600">Jl. Ir. H. Juanda No. 473 RT009 RW001, <br> Kel. Dago, Kec. Coblong, Kota Bandung, 40135</p>
+                            <address class="not-italic text-slate-600">
+                                Jl. Ir. H. Juanda No. 473 RT009 RW001, <br> Kel. Dago, Kec. Coblong, Kota Bandung, 40135
+                            </address>
                         </div>
                     </div>
                 </div>
@@ -233,118 +318,172 @@
         </section>
     </main>
 
-    <footer class="bg-slate-800 text-white py-8">
+    <footer class="bg-slate-800 text-white py-8" role="contentinfo">
         <div class="container mx-auto px-6 text-center">
             <p>&copy; 2025 Fauzan Iskandar Raharja. Dibuat untuk tujuan portofolio.</p>
-            <p class="mt-2 text-slate-400">fauzaniskandar.official@gmail.com | 0822-6151-6936</p>
+            <p class="mt-2 text-slate-400">
+                <a href="mailto:fauzaniskandar.official@gmail.com" class="hover:text-white">fauzaniskandar.official@gmail.com</a> | 0822-6151-6936
+            </p>
         </div>
     </footer>
 
+    <!-- Fallback message when JS is disabled for charts -->
+    <noscript>
+        <div class="container mx-auto px-6 py-6">
+            <p class="text-center text-sm text-slate-500">Grafik keahlian memerlukan JavaScript. Harap aktifkan JavaScript untuk melihat grafik interaktif.</p>
+        </div>
+    </noscript>
+
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const chartOptions = {
-                indexAxis: 'y',
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    x: {
-                        beginAtZero: true,
-                        max: 100,
-                        grid: { color: 'rgba(203, 213, 225, 0.5)' },
-                        ticks: { display: false }
-                    },
-                    y: {
-                        grid: { display: false },
-                        ticks: {
-                            font: { size: 14, family: 'Inter, sans-serif' },
-                            color: '#334155'
-                        }
+        /* DOM & Feature safe initialization for interactive behaviors */
+        (function () {
+            // Utility: simple throttle
+            function throttle(fn, wait) {
+                let lastTime = 0;
+                return function (...args) {
+                    const now = Date.now();
+                    if (now - lastTime >= wait) {
+                        lastTime = now;
+                        fn.apply(this, args);
                     }
-                },
-                plugins: {
-                    legend: { display: false },
-                    tooltip: {
-                        backgroundColor: '#0f172a',
-                        titleFont: { size: 16, family: 'Inter, sans-serif', weight: 'bold' },
-                        bodyFont: { size: 14, family: 'Inter, sans-serif' },
-                        callbacks: {
-                            label: function(context) {
-                                let label = context.dataset.label || '';
-                                if (label) { label += ': '; }
-                                if (context.parsed.x !== null) { label += context.parsed.x + '% Mahir'; }
-                                return label;
+                };
+            }
+
+            // DOMContentLoaded ensures elements exist; Chart.js is loaded with defer so it should be available
+            document.addEventListener('DOMContentLoaded', function () {
+                // Chart configuration (kept from original with safety checks)
+                const chartOptions = {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            max: 100,
+                            grid: { color: 'rgba(203, 213, 225, 0.5)' },
+                            ticks: { display: false }
+                        },
+                        y: {
+                            grid: { display: false },
+                            ticks: {
+                                font: { size: 14, family: 'Inter, sans-serif' },
+                                color: '#334155'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: '#0f172a',
+                            titleFont: { size: 16, family: 'Inter, sans-serif', weight: 'bold' },
+                            bodyFont: { size: 14, family: 'Inter, sans-serif' },
+                            callbacks: {
+                                label: function (context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) { label += ': '; }
+                                    if (context.parsed.x !== null) { label += context.parsed.x + '% Mahir'; }
+                                    return label;
+                                }
                             }
                         }
                     }
+                };
+
+                const networkSkillsData = {
+                    labels: ['Konfigurasi Jaringan', 'Troubleshooting', 'Administrasi Jaringan', 'Sistem Operasi'],
+                    datasets: [{
+                        label: 'Kemahiran',
+                        data: [90, 85, 75, 95],
+                        backgroundColor: '#3b82f6',
+                        borderColor: '#1d4ed8',
+                        borderWidth: 1,
+                        borderRadius: 5,
+                        barThickness: 20,
+                    }]
+                };
+
+                const fiberSkillsData = {
+                    labels: ['Splicing Fiber', 'Pengujian Kabel Fiber', 'Microsoft Office'],
+                    datasets: [{
+                        label: 'Kemahiran',
+                        data: [90, 80, 85],
+                        backgroundColor: '#3b82f6',
+                        borderColor: '#1d4ed8',
+                        borderWidth: 1,
+                        borderRadius: 5,
+                        barThickness: 20,
+                    }]
+                };
+
+                // Safe chart creation: check element and Chart availability
+                try {
+                    if (window.Chart) {
+                        const networkCanvas = document.getElementById('networkSkillsChart');
+                        if (networkCanvas && networkCanvas.getContext) {
+                            const networkCtx = networkCanvas.getContext('2d');
+                            // Destroy existing chart instance if re-initializing (prevents double render in some SPA cases)
+                            if (networkCanvas._chartInstance) {
+                                networkCanvas._chartInstance.destroy();
+                            }
+                            networkCanvas._chartInstance = new Chart(networkCtx, { type: 'bar', data: networkSkillsData, options: chartOptions });
+                        }
+
+                        const fiberCanvas = document.getElementById('fiberSkillsChart');
+                        if (fiberCanvas && fiberCanvas.getContext) {
+                            const fiberCtx = fiberCanvas.getContext('2d');
+                            if (fiberCanvas._chartInstance) {
+                                fiberCanvas._chartInstance.destroy();
+                            }
+                            fiberCanvas._chartInstance = new Chart(fiberCtx, { type: 'bar', data: fiberSkillsData, options: chartOptions });
+                        }
+                    } else {
+                        // Chart.js not available; leave fallback message in noscript or consider showing static values
+                        console.warn('Chart.js not available — interactive charts will not render.');
+                    }
+                } catch (e) {
+                    console.error('Error creating charts:', e);
                 }
-            };
-            
-            const networkSkillsData = {
-                labels: ['Konfigurasi Jaringan', 'Troubleshooting', 'Administrasi Jaringan', 'Sistem Operasi'],
-                datasets: [{
-                    label: 'Kemahiran',
-                    data: [90, 85, 75, 95],
-                    backgroundColor: '#3b82f6',
-                    borderColor: '#1d4ed8',
-                    borderWidth: 1,
-                    borderRadius: 5,
-                    barThickness: 20,
-                }]
-            };
 
-            const fiberSkillsData = {
-                labels: ['Splicing Fiber', 'Pengujian Kabel Fiber', 'Microsoft Office'],
-                datasets: [{
-                    label: 'Kemahiran',
-                    data: [90, 80, 85],
-                    backgroundColor: '#3b82f6',
-                    borderColor: '#1d4ed8',
-                    borderWidth: 1,
-                    borderRadius: 5,
-                    barThickness: 20,
-                }]
-            };
+                // Mobile select navigation
+                const mobileNav = document.getElementById('mobile-nav');
+                if (mobileNav) {
+                    mobileNav.addEventListener('change', (event) => {
+                        const sectionId = event.target.value;
+                        if (sectionId && document.querySelector(sectionId)) {
+                            document.querySelector(sectionId).scrollIntoView({ behavior: 'smooth' });
+                        }
+                    });
+                }
 
-            const networkCtx = document.getElementById('networkSkillsChart').getContext('2d');
-            new Chart(networkCtx, { type: 'bar', data: networkSkillsData, options: chartOptions });
+                // Nav title transition behavior (throttled)
+                const navTitle = document.getElementById('nav-title');
+                if (navTitle) {
+                    const originalTitle = 'Curriculum Vitae';
+                    const shortTitle = 'CV';
+                    let isShortTitleVisible = false;
+                    // Initialize text (keeps original behavior)
+                    navTitle.textContent = originalTitle;
 
-            const fiberCtx = document.getElementById('fiberSkillsChart').getContext('2d');
-            new Chart(fiberCtx, { type: 'bar', data: fiberSkillsData, options: chartOptions });
+                    const updateTitle = throttle(() => {
+                        const shouldShort = window.scrollY > 50;
+                        if (shouldShort !== isShortTitleVisible) {
+                            isShortTitleVisible = shouldShort;
+                            // Fade out by adding hidden class, change text after transition
+                            navTitle.classList.add('nav-title--hidden');
+                            setTimeout(() => {
+                                navTitle.textContent = shouldShort ? shortTitle : originalTitle;
+                                navTitle.classList.remove('nav-title--hidden');
+                            }, 300);
+                        }
+                    }, 100);
 
-            const mobileNav = document.getElementById('mobile-nav');
-            mobileNav.addEventListener('change', (event) => {
-                const sectionId = event.target.value;
-                document.querySelector(sectionId).scrollIntoView({ behavior: 'smooth' });
-            });
-            
-            // Script to change nav title with a smooth transition
-            const navTitle = document.getElementById('nav-title');
-            const originalTitle = 'Curriculum Vitae';
-            const shortTitle = 'CV';
-            let isShortTitleVisible = false;
-
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 50 && !isShortTitleVisible) {
-                    isShortTitleVisible = true;
-                    navTitle.style.opacity = '0';
-                    navTitle.style.transform = 'scale(0.8)';
-                    setTimeout(() => {
-                        navTitle.textContent = shortTitle;
-                        navTitle.style.opacity = '1';
-                        navTitle.style.transform = 'scale(1)';
-                    }, 300); // Wait for the fade-out to complete
-                } else if (window.scrollY <= 50 && isShortTitleVisible) {
-                    isShortTitleVisible = false;
-                    navTitle.style.opacity = '0';
-                    navTitle.style.transform = 'scale(0.8)';
-                    setTimeout(() => {
-                        navTitle.textContent = originalTitle;
-                        navTitle.style.opacity = '1';
-                        navTitle.style.transform = 'scale(1)';
-                    }, 300); // Wait for the fade-out to complete
+                    // Run once to set initial state
+                    updateTitle();
+                    window.addEventListener('scroll', updateTitle, { passive: true });
+                    window.addEventListener('resize', updateTitle);
                 }
             });
-        });
+        })();
     </script>
 </body>
 </html>
